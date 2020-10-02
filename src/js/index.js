@@ -5,6 +5,26 @@
 // console.log('it works!');
 // pacMan.style.left = xpos + "px";
 // pacMan.style.top = ypos + "px";
+const tileSize = 85
+
+class Stage {
+    constructor(x, y) {
+        this.width = x;
+        this.height = y
+    }
+
+    render() {
+        const stage = document.createElement('div');
+        stage.className = 'stage';
+        // stage.innerHTML = `<div class="stage"></div>`
+        return stage
+    }
+    mount(parent) {
+        this.element = this.render();
+        parent.appendChild(this.element);
+        // this.update()
+    }
+}
 
 class Pacman {
     constructor(initialXpos, initialYpos, mouthOpen) {
@@ -48,34 +68,20 @@ class Pacman {
             pacMan.style.left = this.xpos + "px";
             pacMan.style.top = this.ypos + "px";
             
-            return document
           });
+          return pacMan
     }
 
-    mount() {
-        this.game = this.render()
-        this.update()
+    mount(parent) {
+        this.element = this.render()
+        console.log(this.element)
+        parent.appendChild(this.element)
     }    
 }
 
 const app = document.querySelector('#app')
+const stage = new Stage(500, 500)
+
+stage.mount(app)
 const pacpac = new Pacman(50, 50, true)
-pacpac.mount(app)
-// document.addEventListener('keydown', (event) => {
-//     if(event.code === 'ArrowLeft') {
-//         pacMan.style.backgroundPositionY = "255px";
-//     } else if(event.code === 'ArrowRight' && xpos <= 1200) {
-//         xpos += 85
-//         pacMan.style.backgroundPositionY = "340px"
-//     } else if(event.code === 'ArrowUp' && ypos >= 85) {
-            // xpos -= 85
-//         pacMan.style.backgroundPositionY = "85px"
-//     } else if(event.code === 'ArrowDown' && ypos <= 600) {
-//         ypos += 85
-//         pacMan.style.backgroundPositionY = "170px"
-//     }
-//     pacMan.style.left = xpos + "px";
-//     pacMan.style.top = ypos + "px";
-//   });
-// }
-// }
+pacpac.mount(stage.element);
